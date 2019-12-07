@@ -1,0 +1,92 @@
+﻿<Window x:Class="A3.MainWindow"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:A3"
+        mc:Ignorable="d"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+    xmlns:viewModels="clr-namespace:A3.ViewModel;assembly=A3"
+    d:DataContext="{d:DesignInstance viewModels:BranchViewModel}"
+        WindowStartupLocation="CenterScreen"
+    Title="Home"  Height="600" Width="1200">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid  Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="5*"/>
+
+
+            </Grid.RowDefinitions>
+            <TextBox Visibility="Hidden"  Name="BrandName_Selected"  Width="178" Text="{Binding ElementName=BranchGrid,Path=SelectedItem.BranchName}"  />
+
+            <Button Click="BeginOrder_Click" Margin="50,20,50,0" x:Name="Select_Branch" Content="Please Select Branch"  IsEnabled="False">
+
+            </Button>
+            <ListView Name="BranchGrid" SelectedItem="{Binding Select_Branch}" SelectionChanged="BranchGrid_SelectionChanged"  Grid.Row="1" Margin="10,10,10,10"  ItemsSource="{Binding Branchs}"  >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn  Header="Branch Name" DisplayMemberBinding="{Binding BranchName}"  Width="200" />
+                    </GridView>
+                </ListView.View>
+                <!--<ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+                    </Style>
+                </ListView.ItemContainerStyle>-->
+            </ListView>
+        </Grid>
+
+        <StackPanel>
+            <Button Style="{DynamicResource MaterialDesignFlatButton}" Click="BranchBtn_Click">Branch</Button>
+            <Separator/>
+            <Button Style="{DynamicResource MaterialDesignFlatButton}" Click="ProductBtn_Click">Products</Button>
+            <Separator/>
+            <Button  Style="{DynamicResource MaterialDesignFlatButton}">Orders</Button>
+        </StackPanel>
+
+    </Grid>
+    <!--<Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="10*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1" />
+            </Grid.RowDefinitions>
+            <Button Grid.Row="1" Style="{DynamicResource MaterialDesignToolButton}" >
+                Products
+            </Button>
+        </Grid>
+        <materialDesign:Card Padding="5" Height="30" Width="80">
+            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Text="Wally's World Point Of Sales System"/>
+        </materialDesign:Card>
+        <ListView Name="UserGrid" Grid.Row="1" Margin="4,178,12,13"  ItemsSource="{Binding Products}"  >
+            <ListView.View>
+                <GridView x:Name="grdTest">
+                    <GridViewColumn Header="Sku" DisplayMemberBinding="{Binding SKU}"  Width="80"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="200" />
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding WholeSalePrice}" Width="80" />
+                    <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Stock}" Width="80" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>-->
+</Window>
