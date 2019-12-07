@@ -1,4 +1,4 @@
-﻿<Window x:Class="A3.OrderWindow"
+<Window x:Class="A3.OrderWindow"
         
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -65,7 +65,7 @@
                     <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1"  FontSize="20" >Name:</Label>
                     <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1"  FontSize="20"  x:Name="productName" Content="{Binding ElementName=ProductsList,Path=SelectedItem.Name}"></Label>
                     <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2"  FontSize="20" >Price:</Label>
-                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1"  FontSize="20"  x:Name="productPrice" Content="{Binding ElementName=ProductsList,Path=SelectedItem.WholeSalePrice}"></Label>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1"  FontSize="20"  x:Name="productPrice" Content="{Binding ElementName=ProductsList,Path=SelectedItem.WholeSalePrice}" Visibility="Hidden"></Label>
                     <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="3"  FontSize="20" >Quantity</Label>
                     <Label Visibility="Hidden" x:Name="productStock" Content="{Binding ElementName=ProductsList,Path=SelectedItem.Stock}"></Label>
                     <TextBox  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" x:Name="productQuantity"  FontSize="20" >1</TextBox>
@@ -91,17 +91,45 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid>
-                        <Label FontSize="20">Order List</Label>
-                        <ListView  Grid.Row="1" Name="lvProductOrder" Margin="0,30,0,0"   >
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Sku" DisplayMemberBinding="{Binding SKU}"  Width="80"/>
-                                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="200" />
-                                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding WholeSalePrice}" Width="80" />
-                                    <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="100" />
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <Label FontSize="20">Current Order</Label>
+                            <ListView Name="lvProductOrder" Margin="0,30,0,0"   >
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Sku" DisplayMemberBinding="{Binding SKU}"  Width="80"/>
+                                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="200" />
+                                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding SalePrice}" Width="80" />
+                                        <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="100" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Grid Grid.Column="1" Margin="0, 40, 0 , 10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="59*"/>
+                                    <ColumnDefinition Width="86*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Label FontSize="15" HorizontalAlignment="Right" Width="100" Grid.ColumnSpan="2">Sub Total:</Label>
+                                <Label Grid.Row="1" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" Name="SubTotal" Width="100" Grid.ColumnSpan="2"></Label>
+                                <Label Grid.Row="2" FontSize="15" HorizontalAlignment="Right" Width="100" Grid.ColumnSpan="2">Tax (13%):</Label>
+                                <Label Grid.Row="3" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" Name="TaxCost" Width="100" Grid.ColumnSpan="2"></Label>
+                                <Label Grid.Row="4" FontSize="15" HorizontalAlignment="Right" Width="100" Grid.ColumnSpan="2">Total Cost:</Label>
+                                <Label Grid.Row="5" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" Name="TotalCost" Width="100" Grid.ColumnSpan="2"></Label>
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
@@ -109,7 +137,7 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <!--<Button  Width="200" Margin="0,0,0,0"  Name="RemoveFromOrder" IsEnabled="False">Remove From Order</Button>-->
-                        <Button Grid.Row="2" Width="200" Margin="0,0,0,0"  Name="CompleteOrder" IsEnabled="False">Review Order</Button>
+                        <Button Grid.Row="2" Width="200" Margin="0,0,0,0"  Name="CompleteOrder" IsEnabled="False" Click="CompleteOrder_Click">Review Order</Button>
                     </Grid>
                 </Grid>
             </Border>
