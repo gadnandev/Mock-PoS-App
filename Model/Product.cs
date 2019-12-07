@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace A3.Model {
     public class Product : INotifyPropertyChanged {
@@ -52,6 +53,10 @@ namespace A3.Model {
                 quantity = value;
                 OnPropertyChanged("Quantity");
             }
+        }
+
+        internal object ToUpper() {
+            throw new NotImplementedException();
         }
 
         #region INotifyPropertyChanged Members  

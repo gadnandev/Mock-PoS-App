@@ -29,58 +29,79 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-            <Grid   >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Name="BranchSelected"></Label>
-                <Label Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Name="CustomerSelected"></Label>
 
-            </Grid>
             <!--<Button Grid.Column="1">wow</Button>-->
-            <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid  Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="295*"/>
-                    <ColumnDefinition Width="202*"/>
-                    <ColumnDefinition Width="496*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    
+
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="6*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label FontSize="20">Product Listing</Label>
+                        <Label Grid.Column="2" FontSize="8">Search For Products</Label>
+                        <TextBox Grid.Column="2" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"></TextBox>
+                        <!--<TextBlock  FontSize="20">Product Listing</TextBlock>-->
+                        
+                    </Grid>
+                    <ListView Grid.Row="1" Name="ProductsList"  ItemsSource="{Binding Products}"  SelectionChanged="ProductList_Clicked">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Sku" DisplayMemberBinding="{Binding SKU}"  Width="80"/>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="200" />
+                                <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Stock}" Width="80" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+
+                <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1.5*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1.5*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1.5*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="15" >SKU:</Label>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" FontSize="20"  x:Name="productSKU" Content="{Binding ElementName=ProductsList,Path=SelectedItem.SKU}"></Label>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2"  FontSize="15" >Name:</Label>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1"  FontSize="20"  x:Name="productName" Content="{Binding ElementName=ProductsList,Path=SelectedItem.Name}"></Label>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="4"  FontSize="15" >Price:</Label>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="1"  FontSize="20"  x:Name="productPrice" Content="{Binding ElementName=ProductsList,Path=SelectedItem.WholeSalePrice}" Visibility="Hidden"></Label>
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="6"  FontSize="15" >Quantity</Label>
+                    <Label Visibility="Hidden" x:Name="productStock" Content="{Binding ElementName=ProductsList,Path=SelectedItem.Stock}"></Label>
+                    <TextBox Width="50" Padding="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="7" x:Name="productQuantity"  FontSize="20" >1</TextBox>
+                </Grid>
+                <Grid  Grid.Column="2" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" >SKU:</Label>
-                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" FontSize="20"  x:Name="productSKU" Content="{Binding ElementName=ProductsList,Path=SelectedItem.SKU}"></Label>
-                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1"  FontSize="20" >Name:</Label>
-                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1"  FontSize="20"  x:Name="productName" Content="{Binding ElementName=ProductsList,Path=SelectedItem.Name}"></Label>
-                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2"  FontSize="20" >Price:</Label>
-                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1"  FontSize="20"  x:Name="productPrice" Content="{Binding ElementName=ProductsList,Path=SelectedItem.WholeSalePrice}" Visibility="Hidden"></Label>
-                    <Label VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="3"  FontSize="20" >Quantity</Label>
-                    <Label Visibility="Hidden" x:Name="productStock" Content="{Binding ElementName=ProductsList,Path=SelectedItem.Stock}"></Label>
-                    <TextBox  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" x:Name="productQuantity"  FontSize="20" >1</TextBox>
-                    <Button  Grid.Column="1" Click="AddToOrder_Click" x:Name="AddToOrder" Width="200" IsEnabled="False" Margin="148,12,85,14" Content="Add To Order" Grid.Row="3"/>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Name="BranchSelected"></Label>
+                    <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Name="CustomerSelected"></Label>
+
                 </Grid>
-                <Label FontSize="20">Product Listing</Label>
-                <ListView  Name="ProductsList" Margin="10,40,10,10"  ItemsSource="{Binding Products}"  SelectionChanged="ProductList_Clicked" Grid.ColumnSpan="2" >
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Sku" DisplayMemberBinding="{Binding SKU}"  Width="80"/>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"  Width="200" />
-                            <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Stock}" Width="80" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
             </Grid>
             <Border Margin="0,0,0,0" Grid.Row="2">
                 <Grid >
@@ -136,8 +157,10 @@
                             <RowDefinition Height="1*"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
+                        <Button  Click="AddToOrder_Click" x:Name="AddToOrder" Width="200" IsEnabled="False" Content="Add To Order" />
+
                         <!--<Button  Width="200" Margin="0,0,0,0"  Name="RemoveFromOrder" IsEnabled="False">Remove From Order</Button>-->
-                        <Button Grid.Row="2" Width="200" Margin="0,0,0,0"  Name="CompleteOrder" IsEnabled="False" Click="CompleteOrder_Click">Review Order</Button>
+                        <Button Grid.Row="1" Width="200" Margin="0,0,0,0"  Name="CompleteOrder" IsEnabled="False" Click="CommitOrder_Click">Commit Order</Button>
                     </Grid>
                 </Grid>
             </Border>

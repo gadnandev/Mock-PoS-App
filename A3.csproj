@@ -63,8 +63,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Branch.cs" />
+    <Compile Include="Classes\BuisnessLogic\BuildOrder.cs" />
+    <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\Branch.cs" />
     <Compile Include="ViewModel\BranchViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
@@ -119,8 +120,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\Product.cs" />
+    <Compile Include="Model\Order.cs" />
+    <Compile Include="Model\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -147,8 +148,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\BuisnessLogic\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
